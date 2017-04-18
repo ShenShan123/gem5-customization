@@ -62,6 +62,10 @@
 #include "mem/cache/tags/base.hh"
 #include "params/Cache.hh"
 #include "sim/eventq.hh"
+/* by shen */
+#include "base/trace_file.hh"
+#include <map>
+#include <iostream>
 
 //Forward decleration
 class BasePrefetcher;
@@ -73,6 +77,11 @@ class BasePrefetcher;
  */
 class Cache : public BaseCache
 {
+  public:
+    /* by shen */
+    //std::map<int, int> setDistribution;
+    Stats::SparseHistogram setDistr;
+
   protected:
 
     /**

@@ -416,9 +416,12 @@ DefaultFetch<Impl>::processCacheCompletion(PacketPtr pkt)
     cpu->ppInstAccessComplete->notify(pkt);
 
     /* get physAddr and llcMiss from pkt, by shen */
+#ifdef TRACE
     Addr physAddr = pkt->getPhysAddr();
     bool llcMiss  = pkt->isLlcMiss();
+
     traceFile.memTraceFile << "instr_physAddr: " << std::hex << physAddr << " is_LLC_miss: " << llcMiss << std::endl;
+#endif
 
 
     // Reset the mem req to NULL.

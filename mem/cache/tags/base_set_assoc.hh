@@ -87,8 +87,12 @@ class BaseSetAssoc : public BaseTags
     const unsigned assoc;
     /** The allocatable associativity of the cache (alloc mask). */
     unsigned allocAssoc;
+  
+  public:
     /** The number of sets in the cache. */
     const unsigned numSets;
+  
+  protected:
     /** Whether tags and data are accessed sequentially. */
     const bool sequentialAccess;
 

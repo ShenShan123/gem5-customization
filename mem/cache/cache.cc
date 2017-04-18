@@ -102,6 +102,14 @@ void
 Cache::regStats()
 {
     BaseCache::regStats();
+
+    using namespace Stats;
+
+    setDistr
+        .init(0)
+        .name(name() + ".setDistr")
+        .desc("Cache set distribution")
+        .flags(nozero);
 }
 
 void
@@ -317,6 +325,19 @@ Cache::access(PacketPtr pkt, CacheBlk *&blk, Cycles &lat,
     // Here lat is the value passed as parameter to accessBlock() function
     // that can modify its value.
     blk = tags->accessBlock(pkt->getAddr(), pkt->isSecure(), lat);
+
+    /* this is for d-cache, by shen */
+    if (blk && name() == "system.cpu.dcache") {
+        int setIdx = blk->set;
+        /*std::map<int, int>::iterator it = setDistribution.find(setIdx);
+        // do statistics
+        if (it == setDistribution.end())
+            setDistribution.insert( std::pair<int, int>(setIdx, 1) );
+        else
+            ++ it->second;*/
+
+        setDistr.sample(setIdx);
+    }
 
     DPRINTF(Cache, "%s %s\n", pkt->print(),
             blk ? "hit " + blk->print() : "miss");

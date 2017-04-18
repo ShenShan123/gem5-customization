@@ -58,6 +58,7 @@
 #include "sim/probe/probe.hh"
 /* by shen */
 #include "base/trace_file.hh"
+//#define TRACE
 
 struct DerivO3CPUParams;
 
@@ -86,9 +87,6 @@ class DefaultFetch
     /** Typedefs from ISA. */
     typedef TheISA::MachInst MachInst;
     typedef TheISA::ExtMachInst ExtMachInst;
-    
-    /* get a tace file instance here, by shen */
-    TraceFile traceFile;
 
     class FetchTranslation : public BaseTLB::Translation
     {

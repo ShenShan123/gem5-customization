@@ -9,7 +9,7 @@ public:
 	std::ofstream memTraceFile;
 	TraceFile() {
 		/* open trace file, by shen */
-    	memTraceFile.open("statistics-results/traceFile.txt", std::ios::out | std::ios::app);
+    	memTraceFile.open("m5out-se-x86/traceFile.txt", std::ios::out);
 	}
 
 	~TraceFile() {
@@ -18,5 +18,7 @@ public:
 };
 
 static TraceFile traceFile;
+/* enable trace file output */
+//#define TRACE
 
 #endif

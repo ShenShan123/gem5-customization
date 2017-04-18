@@ -1035,11 +1035,12 @@ DefaultCommit<Impl>::commitInsts()
 
             if (commit_success) {
                 /* get trace with LLC misses and physAddr, by shen */
+            #ifdef TRACE                
                 Addr physAddr = head_inst->pktAddr;
                 bool llcMiss = head_inst->llcMiss;
 
                 traceFile.memTraceFile << "instr_data_physAddr: " << std::hex << physAddr << " is_LLC_miss: " << llcMiss << std::endl;
-
+            #endif
                 ++num_committed;
                 statCommittedInstType[tid][head_inst->opClass()]++;
                 ppCommit->notify(head_inst);
