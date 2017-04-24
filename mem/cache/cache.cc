@@ -329,14 +329,8 @@ Cache::access(PacketPtr pkt, CacheBlk *&blk, Cycles &lat,
     /* this is for d-cache, by shen */
     if (blk && name() == "system.cpu.dcache") {
         int setIdx = blk->set;
-        /*std::map<int, int>::iterator it = setDistribution.find(setIdx);
-        // do statistics
-        if (it == setDistribution.end())
-            setDistribution.insert( std::pair<int, int>(setIdx, 1) );
-        else
-            ++ it->second;*/
-
         setDistr.sample(setIdx);
+        //traceFile.cacheTraceFile << "addr_blk: " << tags->blkAlign(pkt->getAddr()) << "addr: " << pkt->getAddr() << std::endl;
     }
 
     DPRINTF(Cache, "%s %s\n", pkt->print(),

@@ -60,6 +60,9 @@
 #include "mem/packet.hh"
 #include "mem/request.hh"
 
+/* by shen */
+#include "base/trace_file.hh"
+
 template<class Impl>
 LSQUnit<Impl>::WritebackEvent::WritebackEvent(DynInstPtr &_inst, PacketPtr _pkt,
                                               LSQUnit *lsq_ptr)
@@ -346,6 +349,11 @@ LSQUnit<Impl>::insert(DynInstPtr &inst)
     assert(inst->isMemRef());
 
     assert(inst->isLoad() || inst->isStore());
+
+    /* get memory trace, by shen */
+    /*traceFile.memTraceFile << "PC: " << std::hex << inst->instAddr() << "is load: " << inst->isLoad() \
+    << " ,ld/st virtual addr: " << inst->effAddr << " ,instruction effective addr: " << inst->getEA() \
+    << " ,effective physical addr: low " << inst->physEffAddrLow << " high " << inst->physEffAddrHigh << std::endl;*/
 
     if (inst->isLoad()) {
         insertLoad(inst);

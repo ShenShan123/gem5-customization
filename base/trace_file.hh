@@ -6,19 +6,23 @@
 /* trace file, by shen */
 class TraceFile {
 public:
-	std::ofstream memTraceFile;
+	//std::ofstream cacheTraceFile;
+	std::ofstream requtTraceFile;
 	TraceFile() {
 		/* open trace file, by shen */
-    	memTraceFile.open("m5out-se-x86/traceFile.txt", std::ios::out);
+    	//cacheTraceFile.open("m5out-se-x86/cacheTraceFile.txt", std::ios::out);
+    	requtTraceFile.open("m5out-se-x86/requtTraceFile.txt", std::ios::out);
 	}
 
 	~TraceFile() {
-		memTraceFile.close();
+		//cacheTraceFile.close();
+		requtTraceFile.close();
 	}
 };
 
 static TraceFile traceFile;
 /* enable trace file output */
 //#define TRACE
+#define R_TRACE
 
 #endif

@@ -1035,7 +1035,7 @@ DefaultCommit<Impl>::commitInsts()
 
             if (commit_success) {
                 /* get trace with LLC misses and physAddr, by shen */
-            #ifdef TRACE                
+            #ifdef TRACE
                 Addr physAddr = head_inst->pktAddr;
                 bool llcMiss = head_inst->llcMiss;
 

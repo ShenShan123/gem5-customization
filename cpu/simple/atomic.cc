@@ -360,6 +360,10 @@ AtomicSimpleCPU::readMem(Addr addr, uint8_t * data, unsigned size,
     dcache_latency = 0;
 
     req->taskId(taskId());
+
+    /* first time in this loop, by shen */
+    bool first = true;
+
     while (1) {
         req->setVirt(0, addr, size, flags, dataMasterId(), thread->pcState().instAddr());
 
@@ -381,6 +385,14 @@ AtomicSimpleCPU::readMem(Addr addr, uint8_t * data, unsigned size,
                     dcache_latency += dcachePort.sendAtomic(&pkt);
             }
             dcache_access = true;
+
+            /* get memory trace, by shen */
+            #ifdef R_TRACE
+            if (first) {
+                traceFile.requtTraceFile << std::hex << "rd_paddr: " << pkt.getAddr() << "\treq_vaddr: " << req->getVaddr() << std::endl;
+                first = false;
+            }
+            #endif
 
             assert(!pkt.isError());
 
@@ -464,6 +476,10 @@ AtomicSimpleCPU::writeMem(uint8_t *data, unsigned size, Addr addr,
     dcache_latency = 0;
 
     req->taskId(taskId());
+
+    /* first time in this loop, by shen */
+    bool first = true;
+
     while (1) {
         req->setVirt(0, addr, size, flags, dataMasterId(), thread->pcState().instAddr());
 
@@ -503,6 +519,15 @@ AtomicSimpleCPU::writeMem(uint8_t *data, unsigned size, Addr addr,
                     threadSnoop(&pkt, curThread);
                 }
                 dcache_access = true;
+
+                /* get memory trace, by shen */
+                #ifdef R_TRACE
+                if (first) {
+                    traceFile.requtTraceFile << std::hex << "wt_paddr: " << pkt.getAddr() << "\treq_vaddr: " << req->getVaddr() << std::endl;
+                    first = false;
+                }
+                #endif
+
                 assert(!pkt.isError());
 
                 if (req->isSwap()) {

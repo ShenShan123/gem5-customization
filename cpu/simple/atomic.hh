@@ -49,6 +49,9 @@
 #include "params/AtomicSimpleCPU.hh"
 #include "sim/probe/probe.hh"
 
+/* get mem trace, by shen */
+#include "base/trace_file.hh"
+
 class AtomicSimpleCPU : public BaseSimpleCPU
 {
   public:
