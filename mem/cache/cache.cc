@@ -329,6 +329,7 @@ Cache::access(PacketPtr pkt, CacheBlk *&blk, Cycles &lat,
     /* this is for d-cache, by shen */
     if (blk && name() == "system.cpu.dcache") {
         int setIdx = blk->set;
+        /* statistic the distribution of set accesses */
         setDistr.sample(setIdx);
         //traceFile.cacheTraceFile << "addr_blk: " << tags->blkAlign(pkt->getAddr()) << "addr: " << pkt->getAddr() << std::endl;
     }

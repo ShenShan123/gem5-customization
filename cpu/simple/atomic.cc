@@ -362,7 +362,9 @@ AtomicSimpleCPU::readMem(Addr addr, uint8_t * data, unsigned size,
     req->taskId(taskId());
 
     /* first time in this loop, by shen */
+    #ifdef R_TRACE
     bool first = true;
+    #endif
 
     while (1) {
         req->setVirt(0, addr, size, flags, dataMasterId(), thread->pcState().instAddr());
@@ -478,7 +480,9 @@ AtomicSimpleCPU::writeMem(uint8_t *data, unsigned size, Addr addr,
     req->taskId(taskId());
 
     /* first time in this loop, by shen */
+    #ifdef R_TRACE
     bool first = true;
+    #endif
 
     while (1) {
         req->setVirt(0, addr, size, flags, dataMasterId(), thread->pcState().instAddr());
